@@ -11,13 +11,13 @@ Usage:
 
   $ lxc config set test-container boot.autostart 0
 
-  $ crm configure primitive test-container mylxd \\
+  $ crm configure primitive test-container mylxd \
 
-        params container="test-container" \\
+        params container="test-container" \
 
-        op start timeout="60s" interval="0s" \\
+        op start timeout="60s" interval="0s" \
 
-        op monitor timeout="30s" interval="10s" on-fail="restart" \\
+        op monitor timeout="30s" interval="10s" on-fail="restart" \
 
         op stop timeout="60s" interval="0s"
 
