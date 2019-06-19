@@ -5,15 +5,19 @@ This is a pacemaker resource agent for LXD, which I have used for years to failo
 
 Usage: 
 
-- Download [mylxd](https://github.com/q13975/articles/blob/master/mylxd) and put the resource agent into /usr/lib/ocf/resource.d/hearbeat directory in all your HA cluster host servers.
+- Download [mylxd](https://github.com/q13975/articles/blob/master/mylxd) and put the resource agent into /usr/lib/ocf/resource.d/hearbeat directory in all your HA cluster nodes.
 
-- Configure the cluster for container 'test-container', which I assume you have set it up and make sure you disable its 'autostart' attribute in every HA cluster node:
+- Configure the cluster for container 'test-container', which I assume you have set it up and disable its 'autostart' attribute in every HA cluster node:
 
-$ lxc config set test-container boot.autostart 0
+  $ lxc config set test-container boot.autostart 0
 
-$ crm configure primitive test-container mylxd \\
+  $ crm configure primitive test-container mylxd \\
+
         params container="test-container" \\
+
         op start timeout="60s" interval="0s" \\
+
         op monitor timeout="30s" interval="10s" on-fail="restart" \\
+
         op stop timeout="60s" interval="0s"
 
